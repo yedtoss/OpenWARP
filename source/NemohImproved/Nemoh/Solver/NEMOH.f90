@@ -245,6 +245,12 @@ MODULE NEMOH
         stat_xg = rad_case(6*I, 6)
         stat_nface = count(mesh_cPanel == I)
         stat_np = 4*stat_nface
+
+        ! Solve mesh reallocation issues in case of more than 1 body
+        IF (I > 1) THEN
+            DEALLOCATE(stat_x, stat_y, stat_z, stat_p)
+        END IF
+
         ALLOCATE(stat_x(stat_np), stat_y(stat_np), stat_z(stat_np), stat_p(stat_nface, 4))
 
         stat_tmp1 =   0
